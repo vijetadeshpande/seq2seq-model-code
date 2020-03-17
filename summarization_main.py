@@ -31,7 +31,7 @@ INPUT_DIM = len(SRC.vocab)
 OUTPUT_DIM = len(TRG.vocab)
 ENC_EMB_DIM = 100
 DEC_EMB_DIM = 100
-HID_DIM = 512
+HID_DIM = 100
 N_LAYERS = 2
 ENC_DROPOUT = 0.5
 DEC_DROPOUT = 0.5
@@ -61,7 +61,7 @@ TRG_PAD_IDX = TRG.vocab.stoi[TRG.pad_token]
 criterion = nn.CrossEntropyLoss(ignore_index = TRG_PAD_IDX)
 
 # training parameters
-N_EPOCHS = 2
+N_EPOCHS = 10
 CLIP = 1
 best_valid_loss = float('inf')
 
