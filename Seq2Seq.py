@@ -19,7 +19,7 @@ class Seq2Seq(nn.Module):
         self.device = device
         
         #
-        assert encoder.hid_dim == decoder.hid_dim, \
+        assert encoder.hidden_dim == decoder.hidden_dim, \
             "Hidden dimensions of encoder and decoder must be equal!"
         assert encoder.n_layers == decoder.n_layers, \
             "Encoder and decoder must have equal number of layers!"
@@ -38,7 +38,7 @@ class Seq2Seq(nn.Module):
         outputs = torch.zeros(target_len, batch_size, vocab_size).to(self.device)
         
         # compute cell state and hidden state from encoder forward pass
-        hidden, cell = self.encoder.forward(source)
+        hidden, cell = self.encoder(source)
         
         # first input to decoder is sos tokens
         input = target[0, :] # therefore, in your processes data, first element in sequence should correspond to <sos>
@@ -48,7 +48,7 @@ class Seq2Seq(nn.Module):
             
             # forward pass of decoder (at first 't', hidden and cell will be 
             # taken from encoder output)
-            output, hidden, cell = self.decoder.forward(input, hidden, cell)
+            output, hidden, cell = self.decoder(input, hidden, cell)
             
             # store output
             outputs[t] = output

@@ -6,7 +6,7 @@ Created on Sat Mar  7 23:13:50 2020
 @author: vijetadeshpande
 """
 import pandas as pd
-from torchtext import data, vocab
+from torchtext import data
 import torch
 
 """Encapsulates DataLoaders and Datasets for training, validation, test. 
@@ -77,7 +77,7 @@ class ModelData():
         train_iter, test_iter = data.BucketIterator.splits(
                                 datasets = (trn, test), 
                                 batch_sizes = (batch_size, batch_size),
-                                device = torch.device, 
+                                device = 'cpu', 
                                 sort_key = lambda x: len(x.source),
                                 shuffle = True, sort_within_batch = False, repeat = False)
         
@@ -86,8 +86,9 @@ class ModelData():
         train_iter_tuple = BatchTuple(train_iter, "source", "target")
         test_iter_tuple = BatchTuple(test_iter, "source", "target")
         
-        # set attributes for the ModelData clss
+        # set attributes for the ModelData class
         self.trn_dl, self.val_dl, self.test_dl = train_iter_tuple, None, test_iter_tuple
+        self.SRC, self.TRG = SRC, TRG
 
     @classmethod
     def from_dls(cls, path,trn_dl,val_dl,test_dl=None):

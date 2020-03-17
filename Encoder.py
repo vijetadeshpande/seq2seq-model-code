@@ -22,7 +22,8 @@ class Encoder(nn.Module):
         self.embedding = nn.Embedding(input_dim, embedding_dim)
         
         # define unit cell of encoder, this is usually GRU or LSTM
-        self.rnn = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout = dropout)
+        self.rnn = nn.LSTM(input_size = embedding_dim, hidden_size = hidden_dim, 
+                           num_layers = n_layers, dropout = dropout)
         
         # define dropout
         self.dropout = nn.Dropout(dropout)

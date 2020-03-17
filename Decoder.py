@@ -11,7 +11,7 @@ import torch.nn as nn
 
 
 class Decoder(nn.Module):
-    def __init__(self, hidden_dim, output_dim, embedding_dim, n_layers, dropout):
+    def __init__(self, output_dim, embedding_dim, hidden_dim, n_layers, dropout):
         super().__init__()
         
         #setting different dimension attributes
@@ -24,7 +24,8 @@ class Decoder(nn.Module):
         self.embedding = nn.Embedding(output_dim, embedding_dim)
         
         # define type of unit cell
-        self.rnn = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout)
+        self.rnn = nn.LSTM(input_size = embedding_dim, hidden_size = hidden_dim, 
+                           num_layers = n_layers, dropout = dropout)
         
         # define dropout
         self.dropout = nn.Dropout(dropout)
