@@ -41,7 +41,7 @@ class Encoder(nn.Module):
         output, (hidden, cell) = self.rnn(embedded)
         
         # dimension check:
-        # out = [source_len X batch_size X hid_dim*n_directions]
+        # out = [source_len, batch_size, hid_dim*n_directions]
         # hidden = [n_layers*n_directions, batch_size, hid_dim]
         # cell = [n_layers*n_directions, batch_size, hid_dim]
         
